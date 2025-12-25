@@ -1,0 +1,99 @@
+{
+  "name": "gist-sync",
+  "displayName": "Gist Sync",
+  "description": "Sync workspace files to a GitHub Gist",
+  "main": "./dist/extension.js",
+  "version": "1.0.0",
+  "publisher": "prberg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PaulRBerg/gist-sync"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "keywords": [
+    "backup",
+    "cloud",
+    "cursor-ide",
+    "gist",
+    "github",
+    "github-gist",
+    "sync",
+    "vscode"
+  ],
+  "bugs": {
+    "url": "https://github.com/PaulRBerg/gist-sync/issues"
+  },
+  "homepage": "https://github.com/PaulRBerg/gist-sync#readme",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "gistSync.syncToGist",
+        "title": "Sync Files to Gist",
+        "category": "Gist Sync",
+        "icon": "$(cloud-upload)"
+      }
+    ],
+    "configuration": {
+      "title": "Gist Sync",
+      "properties": {
+        "gistSync.files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "TODO.md"
+          ],
+          "description": "Files to sync to GitHub Gist (relative to workspace root)",
+          "scope": "resource"
+        },
+        "gistSync.gistId": {
+          "type": "string",
+          "default": "",
+          "description": "GitHub Gist ID. Auto-populated on first sync.",
+          "scope": "resource"
+        },
+        "gistSync.statusBarExtensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            ".md"
+          ],
+          "description": "File extensions that show the status bar (e.g., [\".md\", \".txt\"])",
+          "scope": "resource"
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "effect": "^3.19.13"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.10",
+    "@effect/vitest": "^0.27.0",
+    "@sablier/devkit": "^1.9.1",
+    "@types/node": "^25.0.3",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.27.2",
+    "husky": "^9.1.7",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3",
+    "ultracite": "^6.5.0",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "scripts": {
+    "prepare": "husky"
+  }
+}

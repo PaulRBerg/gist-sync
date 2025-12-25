@@ -1,0 +1,7 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/schema.json",
+  "extends": ["ultracite/core", "@sablier/devkit/biome/base"],
+  "files": {
+    "includes": ["src/**/*.ts", "vitest.config.ts"]
+  }
+}

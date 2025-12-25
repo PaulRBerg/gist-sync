@@ -1,0 +1,8 @@
+# directories
+dist/
+node_modules/
+
+# files
+*.tsbuildinfo
+*.vsix
+bun.lockb
