@@ -1,0 +1,27 @@
+## directories
+.vscode/**
+.github/**
+.husky/**
+.claude/**
+node_modules/**
+src/**
+
+## config files
+.gitignore
+.env
+biome.jsonc
+justfile
+tsconfig.json
+tsconfig.tsbuildinfo
+vitest.config.ts
+
+## lock files
+*.lock
+bun.lock
+
+## documentation
+CLAUDE.md
+AGENTS.md
+
+## source files
+*.ts
