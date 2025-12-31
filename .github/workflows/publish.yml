@@ -38,10 +38,12 @@ jobs:
           path: ${{ steps.publishToOpenVSX.outputs.vsixPath }}
 
       - name: Summary
-        run: | #shell
-          echo "## Published Extension" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- **Version**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **VSIX**: \`$(basename ${{ steps.publishToOpenVSX.outputs.vsixPath }})\`" >> $GITHUB_STEP_SUMMARY
-          echo "- **Open VSX**: ✅" >> $GITHUB_STEP_SUMMARY
-          echo "- **VS Marketplace**: ✅" >> $GITHUB_STEP_SUMMARY
+        run: |
+          {
+            echo "## Published Extension"
+            echo ""
+            echo "- **Version**: ${{ github.ref_name }}"
+            echo "- **VSIX**: \`$(basename "${{ steps.publishToOpenVSX.outputs.vsixPath }}")\`"
+            echo "- **Open VSX**: ✅"
+            echo "- **VS Marketplace**: ✅"
+          } >> "$GITHUB_STEP_SUMMARY"
