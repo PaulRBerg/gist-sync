@@ -38,7 +38,7 @@ jobs:
           path: ${{ steps.publishToOpenVSX.outputs.vsixPath }}
 
       - name: Summary
-        run: |
+        run: | #shell
           echo "## Published Extension" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Version**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
