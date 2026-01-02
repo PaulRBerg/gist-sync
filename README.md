@@ -2,6 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![VSCode](https://img.shields.io/badge/VSCode-%5E1.85.0-007ACC)](https://code.visualstudio.com/)
+[![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/prberg.gist-sync?label=VS%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=prberg.gist-sync)
+[![Open VSX](https://img.shields.io/open-vsx/v/prberg/gist-sync?label=Open%20VSX)](https://open-vsx.org/extension/prberg/gist-sync)
 
 Sync workspace files to a GitHub Gist with a single command.
 
