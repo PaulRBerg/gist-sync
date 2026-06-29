@@ -4,9 +4,8 @@ import { beforeEach, describe, expect, vi, it as vitestIt } from "vitest";
 import type { FileContents, GistResponse } from "../services/github-api";
 import { GitHubApiService } from "../services/github-api";
 
-// Regex for matching gist description with timestamp
-const GIST_DESCRIPTION_REGEX =
-  /"description":".*my-workspace \| synced via gist-sync extension \| \d{4}-\d{2}-\d{2}@\d{2}:\d{2}:\d{2}"/;
+// Regex for matching gist description: `<workspacePath> | gist-sync`
+const GIST_DESCRIPTION_REGEX = /"description":"\/Users\/test\/my-workspace \| gist-sync"/;
 
 // Helper to run Effect and verify it fails with expected error
 function expectFailure<A, E>(exit: Exit.Exit<A, E>, verify: (error: E) => void): void {

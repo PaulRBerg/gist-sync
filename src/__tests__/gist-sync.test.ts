@@ -354,16 +354,16 @@ describe("gist-sync integration tests", () => {
     });
   });
 
-  describe("workspace path in gist description", () => {
-    it.effect("should pass workspace fsPath to createGist", () => {
+  describe("workspace name in gist description", () => {
+    it.effect("should pass workspace name to createGist", () => {
       const fileContents = new Map([["/my-project/README.md", "# My Project"]]);
       const workspace = createMockWorkspace("my-project", "/my-project");
 
-      let capturedWorkspacePath: string | undefined;
+      let capturedWorkspaceName: string | undefined;
       const GitHubApiServiceWithCapture = Layer.succeed(GitHubApiService, {
-        createGist: (_token: string, _files: FileContents, workspacePath: string) =>
+        createGist: (_token: string, _files: FileContents, workspaceName: string) =>
           Effect.sync(() => {
-            capturedWorkspacePath = workspacePath;
+            capturedWorkspaceName = workspaceName;
             return {
               html_url: "https://gist.github.com/new",
               id: "new-gist-id",
@@ -387,7 +387,7 @@ describe("gist-sync integration tests", () => {
         Effect.provide(TestFileSystemService(fileContents)),
         Effect.provide(GitHubApiServiceWithCapture),
         Effect.tap(() => {
-          expect(capturedWorkspacePath).toBe("/my-project");
+          expect(capturedWorkspaceName).toBe("my-project");
         })
       );
     });
@@ -429,7 +429,10 @@ describe("gist-sync integration tests", () => {
         Effect.provide(GitHubApiServiceWithCapture),
         Effect.tap(() => {
           expect(capturedFiles).toBeDefined();
+          // The first entry is the synthesized title file (`<name> | gist-sync`),
+          // followed by the flattened content filenames.
           expect(Object.keys(capturedFiles ?? {})).toEqual([
+            "test-workspace | gist-sync",
             "docs-README.md",
             "src-utils-helpers.md",
           ]);
@@ -469,7 +472,12 @@ describe("gist-sync integration tests", () => {
         Effect.provide(GitHubApiServiceWithCapture),
         Effect.tap(() => {
           expect(capturedFiles).toBeDefined();
-          expect(Object.keys(capturedFiles ?? {})).toEqual(["TODO.md"]);
+          // The first entry is the synthesized title file (`<name> | gist-sync`),
+          // followed by the flat content filename left unchanged.
+          expect(Object.keys(capturedFiles ?? {})).toEqual([
+            "test-workspace | gist-sync",
+            "TODO.md",
+          ]);
         })
       );
     });
