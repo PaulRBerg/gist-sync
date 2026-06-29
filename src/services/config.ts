@@ -33,8 +33,8 @@ export class ConfigService extends Effect.Service<ConfigService>()("ConfigServic
       }).pipe(
         Effect.flatMap((opt) =>
           Option.match(opt, {
-            onNone: () => Effect.fail(new NoWorkspaceError({})),
             onSome: Effect.succeed,
+            onNone: () => Effect.fail(new NoWorkspaceError({})),
           })
         )
       ),

@@ -41,9 +41,9 @@ describe("GitHubApiService", () => {
         };
 
         mockFetch.mockResolvedValue({
-          json: async () => mockResponse,
           ok: true,
           status: 201,
+          json: async () => mockResponse,
         });
 
         const api = yield* GitHubApiService;
@@ -54,13 +54,13 @@ describe("GitHubApiService", () => {
           "https://api.github.com/gists",
           expect.objectContaining({
             body: expect.stringMatching(GIST_DESCRIPTION_REGEX),
+            method: "POST",
             headers: {
               Accept: "application/vnd.github+json",
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
               "X-GitHub-Api-Version": "2022-11-28",
             },
-            method: "POST",
           })
         );
       }).pipe(Effect.provide(GitHubApiService.Default))
@@ -74,9 +74,9 @@ describe("GitHubApiService", () => {
         };
 
         mockFetch.mockResolvedValue({
-          json: async () => mockResponse,
           ok: true,
           status: 201,
+          json: async () => mockResponse,
         });
 
         const api = yield* GitHubApiService;
@@ -157,8 +157,8 @@ describe("GitHubApiService", () => {
           new Promise((resolve) => {
             setTimeout(() => {
               resolve({
-                json: async () => ({ html_url: "https://gist.github.com/late", id: "late" }),
                 ok: true,
+                json: async () => ({ html_url: "https://gist.github.com/late", id: "late" }),
               });
             }, 35_000); // 35 seconds, exceeds 30 second timeout
           })
@@ -173,7 +173,6 @@ describe("GitHubApiService", () => {
         program.pipe(Effect.provide(GitHubApiService.Default))
       ).then((exit) => {
         expectFailure(exit, (error) => {
-          // biome-ignore lint/suspicious/noMisplacedAssertion: assertion is inside vitestIt callback
           expect(error).toMatchObject({
             _tag: "TimeoutError",
             durationMs: 30_000,
@@ -207,9 +206,9 @@ describe("GitHubApiService", () => {
         };
 
         mockFetch.mockResolvedValue({
-          json: async () => mockResponse,
           ok: true,
           status: 200,
+          json: async () => mockResponse,
         });
 
         const api = yield* GitHubApiService;
@@ -220,13 +219,13 @@ describe("GitHubApiService", () => {
           `https://api.github.com/gists/${gistId}`,
           expect.objectContaining({
             body: expect.stringMatching(GIST_DESCRIPTION_REGEX),
+            method: "PATCH",
             headers: {
               Accept: "application/vnd.github+json",
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
               "X-GitHub-Api-Version": "2022-11-28",
             },
-            method: "PATCH",
           })
         );
       }).pipe(Effect.provide(GitHubApiService.Default))
@@ -240,9 +239,9 @@ describe("GitHubApiService", () => {
         };
 
         mockFetch.mockResolvedValue({
-          json: async () => mockResponse,
           ok: true,
           status: 200,
+          json: async () => mockResponse,
         });
 
         const api = yield* GitHubApiService;
@@ -324,8 +323,8 @@ describe("GitHubApiService", () => {
           new Promise((resolve) => {
             setTimeout(() => {
               resolve({
-                json: async () => ({ html_url: "https://gist.github.com/late", id: "late" }),
                 ok: true,
+                json: async () => ({ html_url: "https://gist.github.com/late", id: "late" }),
               });
             }, 35_000);
           })
@@ -340,7 +339,6 @@ describe("GitHubApiService", () => {
         program.pipe(Effect.provide(GitHubApiService.Default))
       ).then((exit) => {
         expectFailure(exit, (error) => {
-          // biome-ignore lint/suspicious/noMisplacedAssertion: assertion is inside vitestIt callback
           expect(error).toMatchObject({
             _tag: "TimeoutError",
             durationMs: 30_000,
@@ -359,11 +357,11 @@ describe("GitHubApiService", () => {
     it.effect("handles invalid JSON response", () =>
       Effect.gen(function* () {
         mockFetch.mockResolvedValue({
+          ok: true,
+          status: 200,
           json: () => {
             throw new Error("Invalid JSON");
           },
-          ok: true,
-          status: 200,
         });
 
         const api = yield* GitHubApiService;
@@ -400,8 +398,8 @@ describe("GitHubApiService", () => {
           new Promise((resolve) => {
             setTimeout(() => {
               resolve({
-                json: async () => ({ html_url: "https://gist.github.com/late", id: "late" }),
                 ok: true,
+                json: async () => ({ html_url: "https://gist.github.com/late", id: "late" }),
               });
             }, 35_000);
           })
@@ -419,7 +417,6 @@ describe("GitHubApiService", () => {
       await Effect.runPromise(fiber.await);
 
       // Verify abort was called
-      // biome-ignore lint/suspicious/noMisplacedAssertion: assertion is inside vitestIt callback
       expect(abortSpy).toHaveBeenCalled();
 
       // Restore

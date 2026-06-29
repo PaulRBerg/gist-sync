@@ -8,10 +8,10 @@ const buildGistDescription = (workspaceName: string): string => `${workspaceName
 
 export type FileContents = Record<string, { content: string }>;
 
-export interface GistResponse {
-  id: string;
+export type GistResponse = {
   html_url: string;
-}
+  id: string;
+};
 
 // Helper: create interruptible fetch with AbortController
 const fetchWithAbort = (url: string, options: RequestInit): Effect.Effect<Response, HttpError> =>

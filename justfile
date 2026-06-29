@@ -1,4 +1,4 @@
-import "node_modules/@sablier/devkit/just/base.just"
+import "node_modules/@prb/devkit/just/base.just"
 
 # Build extension with esbuild
 @build *args:

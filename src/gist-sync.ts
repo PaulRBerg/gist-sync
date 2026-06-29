@@ -13,16 +13,14 @@ import { GitHubApiService } from "./services/github-api";
  * GitHub Gist doesn't support nested paths, so we flatten them.
  * Example: "docs/TODO.md" -> "docs-TODO.md"
  */
-export const toGistFilename = (filePath: string): string => {
-  return filePath.replace(/\//g, "-");
-};
+export const toGistFilename = (filePath: string): string => filePath.replace(/\//g, "-");
 
-export interface SyncResult {
-  gistUrl: string;
-  gistId: string;
+export type SyncResult = {
   fileCount: number;
+  gistId: string;
+  gistUrl: string;
   isNew: boolean;
-}
+};
 
 export const syncFilesToGist: Effect.Effect<
   SyncResult,

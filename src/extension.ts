@@ -80,11 +80,8 @@ const handleGistNotFound = (
 };
 
 // Get configured status bar extensions
-const getStatusBarExtensions = (): string[] => {
-  return (
-    vscode.workspace.getConfiguration("gistSync").get<string[]>("statusBarExtensions") ?? [".md"]
-  );
-};
+const getStatusBarExtensions = (): string[] =>
+  vscode.workspace.getConfiguration("gistSync").get<string[]>("statusBarExtensions") ?? [".md"];
 
 // Check if file matches configured extensions (case-insensitive)
 const fileMatchesExtensions = (fileName: string, extensions: string[]): boolean => {
@@ -204,7 +201,7 @@ export function activate(context: vscode.ExtensionContext): void {
 
   const syncCommand = vscode.commands.registerCommand("gistSync.syncToGist", () => {
     setStatusSyncing(statusBar);
-    Effect.runPromise(syncWithRecovery(statusBar));
+    void Effect.runPromise(syncWithRecovery(statusBar));
   });
 
   context.subscriptions.push(syncCommand, statusBar, editorChangeListener, configChangeListener);

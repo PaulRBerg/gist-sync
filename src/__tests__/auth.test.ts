@@ -21,12 +21,12 @@ describe("AuthService", () => {
       Effect.gen(function* () {
         const mockSession: vscode.AuthenticationSession = {
           accessToken: "test-github-token-123",
+          id: "session-123",
+          scopes: ["gist"],
           account: {
             id: "user-123",
             label: "testuser",
           },
-          id: "session-123",
-          scopes: ["gist"],
         };
 
         vi.mocked(vscode.authentication.getSession).mockResolvedValue(mockSession);
